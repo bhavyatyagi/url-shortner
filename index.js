@@ -23,23 +23,27 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/shortUrls', async (req, res) => {
+    // check if fullurl already exist 
+
     await ShortUrl.create({ full: req.body.fullUrl });
     res.redirect('/');
 });
 
-app.get('/:shortUrl', async (req, res) => {
-    console.log(req.params.shortUrl);
-    const su = ShortUrl.findOne({ short: req.params.shortUrl });
+app.get('/go/:shortUrl', async (req, res) => {
+    // console.log(req.params.shortUrl);
+    const su = await ShortUrl.findOne({ short: req.params.shortUrl });
+    // delete everything present in shorturl schema 
+    // console.log(su);
     if (!su) {
-        console.log("No such short url");
+        // console.log("No such short url");
+        res.redirect(su.full);
     }
-    else {
-        console.log(su._id);
-    }
-    if (su == null) return sendStatus(404);
-    // su.clicks++;
-    // await su.save();
-    res.redirect('/');
+
+    // console.log(su._id);
+    su.clicks++;
+    await su.save();
+    res.redirect(su.full);
+
 });
 
 app.listen(process.env.PORT || PORT, () => {

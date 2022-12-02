@@ -13,12 +13,16 @@
 - This app has a lot of functionality and is easy to use.
 - So, why not use this app?
 
-## How to clone
+## Important Info
 
-- Clone the repo using the following command:
+- Ensure you have MongoDB running in the background before you run the app.
+- Commands may be helpful on Mac:
+  - brew services start mongodb-community@6.0
+  - brew services stastoprt mongodb-community@6.0
 
-```
-git clone
-```
+## How to run?
 
--
+- Clone the repo
+- Run `npm install`
+- Run `npm start`
+- Open `localhost:3000` in your browser
